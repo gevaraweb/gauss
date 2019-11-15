@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Метод Крамера</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="Autor" content="Вильданов Алмаз Нафкатович alvild@gmail.com">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+	messageStyle: "none",
+    jax: ["input/TeX","output/HTML-CSS"],
+    "HTML-CSS": {
+      availableFonts:[],
+      styles: {".MathJax_Preview": {visibility: "hidden"}}
+    }
+  });
+</script>
+<script
+	src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">  
+</script>
+
+<style>
+h1 {text-align:center}
+h2 {
+  font-weight: bold;
+  background-color: #DDDDDD;
+  padding: .2em .5em;
+  margin-top: 1.5em;
+  border-top: 3px solid #666666;
+  border-bottom: 2px solid #999999;
+}
+</style>
+</head>
+<body>
+
+<noscript>
+<div style="color:#CC0000; text-align:center">
+<b>Warning: <a href="http://www.mathjax.org/">MathJax</a>
+requires JavaScript to process the mathematics on this page.<br />
+If your browser supports JavaScript, be sure it is enabled.</b>
+</div>
+<hr>
+</noscript>
+
+<h2>Метод Крамера</h2>
+
+    <div style = "margin-left: 100px;">	
+
+		<div style="position2: relative;">
+		Дана система уравнений:
+			<div id = "myDiv" style="margin-top: 20px; font-size: 200%;  z-index: 100; width: 200px;" >
+
+
+			</div>	
+			
+		Выпишите определитель матрицы этой системы и найдите его:	
+			<div id = "myDiv2" style="margin-top: 20px; font-size: 200%; z-index: 100; width: 200px;" >
+
+
+			</div>	
+				<input type = "button" value = "проверить" onclick = "check1();">  <span id ="check1"> </span> 
+			
+			
+			<br>	<br>
+		
+		<div id ="question2"> </div> 		
+			<div id = "myDiv3" style="margin-top: 20px; font-size: 200%; z-index: 100; width: 200px;" >
+
+
+			</div>	
+				<input type = "button" value = "проверить" onclick = "check2();">  <span id ="check2"> </span> 				
+				
+			<br>	<br>
+		
+		<div id ="question3"> </div> 		
+			<div id = "myDiv4" style="margin-top: 20px; font-size: 200%; z-index: 100; width: 200px;" >
+
+
+			</div>	
+				<input type = "button" value = "проверить" onclick = "check3();">  <span id ="check3"> </span>
+          
+		
+          
+          
+		<div id ="question33"> </div> 		
+			<div id = "myDiv44" style="margin-top: 20px; font-size: 200%; z-index: 100; width: 200px;" >
+
+
+			</div>	
+				<input type = "button" value = "проверить" onclick = "check33();">  <span id ="check33"> </span>
+          
+			
+			<br>	<br>	
+		<div id ="question4"> Напишите ответ </div> 		
+			<div id = "myDiv5" style="margin-top: 20px; font-size: 200%; z-index: 100; width: 200px;" >
+
+					
+			</div>	
+				<input type = "button" value = "проверить" onclick = "check4();">  <span id ="check4"> </span> 	
+				
+		</div>
+
+	</div>	
+
+</body>
+</html>
+
+ <script>
+ 
+ function random(min_random, max_random) {
+	var range = max_random - min_random + 1;
+	return Math.floor(Math.random()*range) + min_random;
+}
+ 
+function randomOutNull(min_random, max_random) {
+	  var mode = random(0,1); var z=0;
+	  if ( mode == 1 ) z = random(1,max_random)
+		else z = random(min_random,-1); 
+  return z;
+}
+   
+ 
+  function Determinant( A )            
+{  
+
+    var detA = (A[0][0]*A[1][1]*A[2][2]+A[0][1]*A[1][2]*A[2][0]+A[0][2]*A[1][0]*A[2][1])
+                 -(A[0][0]*A[1][2]*A[2][1]+A[0][1]*A[1][0]*A[2][2]+A[0][2]*A[1][1]*A[2][0]);
+
+    return detA;  //@ http://mathhelpplanet. com/viewtopic.php?f=44&t=22390
+} 
+   
+ 
+ var n=4, m=3;
+var mas=new Array(m); var mas2=new Array(m); var mas3=new Array(m); 
+var masX=new Array(m); var masY=new Array(m); var masZ=new Array(m);    
+   var delta=0, delta1=0, delta2=0, delta3=0;
+
+
+for (var i=0; i<m; i++) {
+	mas[i]=new Array(n);
+	mas2[i]=new Array(n);	
+	mas3[i]=new Array(n);
+	masX[i]=new Array(n);
+	masY[i]=new Array(n);	
+	masZ[i]=new Array(n);  
+  
+}
+
+ for (var i=0;i<m;i++){
+ 
+  for (j=0;j<n;j++) {
+	  var mode = random(0,1);
+	  if ( mode == 1 ) mas[i][j]= random(1,3) 
+		else mas[i][j]= -random(1,3); 
+   }
+  }
+
+  
+  
+     mas[0][0]= 1;
+     mas[1][0]= random(2,3);	  mas[1][1]= mas[0][1] * mas[1][0] + 1;  mas[1][2]= mas[0][2] * mas[1][0] - 1;
+     mas[2][0]= random(mas[1][0]+1,4);	  mas[2][1]= mas[0][1] * mas[2][0] - 2;  mas[2][2]= mas[0][2] * mas[2][0] + 1;
+
+	var X = random(-4,4);
+	var Y = random(-4,4);
+	var Z = random(-4,4);	
+   mas[0][3] = randomOutNull(-2,2); Z = Math.round( ( mas[0][3] - mas[0][0] * X - mas[0][1] * Y ) / mas[0][2] ); 
+   
+	 mas[0][3] = mas[0][0] * X + mas[0][1] * Y + mas[0][2] * Z;
+	 mas[1][3] = mas[1][0] * X + mas[1][1] * Y + mas[1][2] * Z;	 
+	 mas[2][3] = mas[2][0] * X + mas[2][1] * Y + mas[2][2] * Z;	 
+	 
+  // console.log( "X="+X );
+   // console.log( "Y="+Y );  
+  //  console.log( "Z="+Z );  
+   
+   
+   
+   
+   
+	/* 
+  X =2; Y = 4; Z = -3;	
+   mas[0][0] = 1; mas[0][1] = 2; mas[0][2] = 3; mas[0][3] = 1;
+    mas[1][0] = 2; mas[1][1] = 5; mas[1][2] = 5; mas[1][3] = 9;  
+     mas[2][0] = 4; mas[2][1] = 6; mas[2][2] = 13; mas[2][3] = -7; 
+   */
+   
+    for (var i=0;i<m;i++){
+ 
+  for (j=0;j<n;j++) {
+	 masX[i][j]=mas[i][j]; 
+  	 masY[i][j]=mas[i][j]; 
+   	 masZ[i][j]=mas[i][j];   
+   }
+   
+  }
+   
+for (var i=0;i<m;i++){
+
+	 masX[i][0]=mas[i][3]; 
+  	 masY[i][1]=mas[i][3]; 
+   	 masZ[i][2]=mas[i][3];   
+   
+  }
+   
+      console.log( "X="+X );
+    console.log( "Y="+Y );  
+    console.log( "Z="+Z );  
+
+       delta= Determinant(  mas ); console.log( "delta="+delta );
+        delta1= Determinant(  masX ); console.log( "delta1="+delta1 ); 
+         delta2= Determinant(  masY ); console.log( "delta2="+delta2 ); 
+            delta3= Determinant(  masZ ); console.log( "delta3="+delta3 ); 
+   
+   
+   
+   
+   
+   
+   
+for (var i=0;i<m;i++){
+	  for (j=0;j<n;j++) {
+		 mas2[i][j]= mas[i][j]; 
+	  }
+  }
+for (j=0;j<n;j++) {
+		 mas2[1][j]= mas[1][j] - mas[0][j]*mas[1][0] ;
+		 mas2[2][j]= mas[2][j] - mas[0][j]*mas[2][0] ;  
+	  }
+
+for (var i=0;i<m;i++){
+	  for (j=0;j<n;j++) {
+		 mas3[i][j]= mas2[i][j]; 
+	  }
+  }	  
+  
+for (j=0;j<n;j++) {
+		 mas3[2][j]= mas2[2][j] + mas2[1][j]*2 ; 		 
+	  }  
+	 
+	// document.getElementById("question2").innerHTML = "Умножьте первое уравнение на " + mas[1][0] + " и вычтите из второго." + 
+		//"Умножьте первое уравнение на " + mas[2][0] + " и вычтите из третьего.";
+   
+ 	 document.getElementById("question2").innerHTML = "Выпишите определитель для первой переменной и найдите его:	";  
+		
+	 document.getElementById("question3").innerHTML = "Выпишите определитель для второй переменной и найдите его:	";		
+	 	 
+	
+ 	 document.getElementById("question33").innerHTML = "Выпишите определитель для третьей переменной и найдите его:	";		 
+   
+   
+   
+ var sys1 =  
+				"\\begin{align*} " + 
+					StringPlus( mas[0][0], 'x', true ) + StringPlus( mas[0][1], 'y', false ) +  StringPlus( mas[0][2], 'z', false ) + " &= " +  String( mas[0][3] ) + " \\\\" + 
+					StringPlus( mas[1][0], 'x', true ) + StringPlus( mas[1][1], 'y', false ) +  StringPlus( mas[1][2], 'z', false ) + " &= " +  mas[1][3] + " \\\\" + 
+					StringPlus( mas[2][0], 'x', true ) + StringPlus( mas[2][1], 'y', false ) +  StringPlus( mas[2][2], 'z', false ) + " &= " +  mas[2][3] + " \\\\" +
+				"\\end{align*}";	
+				
+document.getElementById("myDiv").innerHTML = sys1;
+ 
+ 
+  var sys2 =  "\\[" + 
+				"\\left|" + 
+				"\\begin{array}{ccc}" + 
+				"  \\cssId{a11}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{a12}{\\class{dynamic} ? }&\\cssId{a13}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{a21}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{a22}{\\class{dynamic} ? }&\\cssId{a23}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{a31}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{a32}{\\class{dynamic} ? }&\\cssId{a33}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 		
+				"\\end{array}" + 
+				"\\right|" +
+      "=\\cssId{delta}{\\class{dynamic} &nbsp;?&nbsp; }" + 
+			" \\]";
+
+ document.getElementById("myDiv2").innerHTML = sys2;
+ 
+ 
+   var sys3 =   "\\[" + 
+				"\\left|" + 
+				"\\begin{array}{ccc}" + 
+				"  \\cssId{b11}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{b12}{\\class{dynamic} ? }&\\cssId{b13}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{b21}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{b22}{\\class{dynamic} ? }&\\cssId{b23}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{b31}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{b32}{\\class{dynamic} ? }&\\cssId{b33}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 		
+				"\\end{array}" + 
+				"\\right|" +
+      "=\\cssId{delta1}{\\class{dynamic} &nbsp;?&nbsp; }" + 
+			" \\]";
+
+ document.getElementById("myDiv3").innerHTML = sys3;
+ 
+ 
+    var sys4 =  "\\[" + 
+				"\\left|" + 
+				"\\begin{array}{ccc}" + 
+				"  \\cssId{c11}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{c12}{\\class{dynamic} ? }&\\cssId{c13}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{c21}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{c22}{\\class{dynamic} ? }&\\cssId{c23}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{c31}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{c32}{\\class{dynamic} ? }&\\cssId{c33}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 		
+				"\\end{array}" + 
+				"\\right|" +
+      "=\\cssId{delta2}{\\class{dynamic} &nbsp;?&nbsp; }" + 
+			" \\]";
+
+
+ document.getElementById("myDiv4").innerHTML = sys4;
+   
+      var sys44 =   "\\[" + 
+				"\\left|" + 
+				"\\begin{array}{ccc}" + 
+				"  \\cssId{d11}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{d12}{\\class{dynamic} ? }&\\cssId{d13}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{d21}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{d22}{\\class{dynamic} ? }&\\cssId{d23}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 
+				"  \\cssId{d31}{\\class{dynamic} &nbsp;?&nbsp; } &\\cssId{d32}{\\class{dynamic} ? }&\\cssId{d33}{\\class{dynamic} &nbsp;?&nbsp; } \\\\" + 		
+				"\\end{array}" + 
+				"\\right|" +
+      "=\\cssId{delta3}{\\class{dynamic} &nbsp;?&nbsp; }" + 
+			" \\]";
+
+ document.getElementById("myDiv44").innerHTML = sys44; 
+ 
+ 
+     var sys5 =  "\\[" + 
+				"   x = \\cssId{x}{\\class{dynamic} &nbsp;?&nbsp; } \\; " + 
+				"   y = \\cssId{y}{\\class{dynamic} &nbsp;?&nbsp; } \\; " + 
+				"   z = \\cssId{z}{\\class{dynamic} &nbsp;?&nbsp; } \\; " + 				
+			" \\]";
+
+ document.getElementById("myDiv5").innerHTML = sys5;
+ 
+ // \\cssId{a11}{\\class{dynamic}
+ 
+ /*setTimeout(function() {
+ 
+ 	  for (var i=0;i<m;i++){
+	  for (j=0;j<n;j++) {
+		document.getElementById( "a" + String(i+1) + String(j+1) ).innerHTML = mas[i][j];
+	   }
+	  }
+	  
+	  
+ 	  for (var i=0;i<m;i++){
+	  for (j=0;j<n;j++) {
+		document.getElementById( "b" + String(i+1) + String(j+1) ).innerHTML = mas2[i][j];
+	   }
+	  }	  
+	  
+	  for (var i=0;i<m;i++){
+	  for (j=0;j<n;j++) {
+		document.getElementById( "c" + String(i+1) + String(j+1) ).innerHTML = mas3[i][j];
+	   }
+	  }	 
+	  
+	  } 
+ , 3000);
+ */
+ 
+ 
+ function check1() {
+	flagError = false;
+	
+	  for (var i=0;i<m;i++){
+		if ( flagError ) break;
+	  for (j=0;j<n-1;j++) {
+		var val =  document.getElementById( "a" + String(i+1) + String(j+1) ).innerText.trim();
+		val = val.replace("−","-"); val = parseInt( val );
+		//console.log(  mas[i][j]  + " " +  val ); 
+		if ( mas[i][j] != val ) { flagError = true; break; }
+	   }
+	  }
+   
+   var DELTA =  document.getElementById( "delta" ).innerText.trim();
+   DELTA = DELTA.replace("−","-"); DELTA = parseInt( DELTA );
+   if ( DELTA != delta ) flagError = true;
+      
+	  		if ( flagError ) { document.getElementById("check1").innerHTML = "Неправильно!"; } 
+				else { document.getElementById("check1").innerHTML = "Верно!"; }
+ }
+ 
+ 
+  function check2() {
+	flagError = false;
+	
+	  for (var i=0;i<m;i++){
+		if ( flagError ) break;
+	  for (j=0;j<n-1;j++) {
+		var val =  document.getElementById( "b" + String(i+1) + String(j+1) ).innerText.trim();
+		val = val.replace("−","-"); val = parseInt( val );
+		//console.log(  mas2[i][j]  + " " +  val ); 
+		if ( masX[i][j] != val ) { flagError = true; break; }
+	   }
+	  }
+    
+       var DELTA =  document.getElementById( "delta1" ).innerText.trim();
+   DELTA = DELTA.replace("−","-"); DELTA = parseInt( DELTA );
+   if ( DELTA != delta1 ) flagError = true;
+	  		if ( flagError ) { document.getElementById("check2").innerHTML = "Неправильно!"; } 
+				else { document.getElementById("check2").innerHTML = "Верно!"; }
+ }
+ 
+   function check3() {
+	flagError = false;
+	
+	  for (var i=0;i<m;i++){
+		if ( flagError ) break;
+	  for (j=0;j<n-1;j++) {
+		var val =  document.getElementById( "c" + String(i+1) + String(j+1) ).innerText.trim();
+		val = val.replace("−","-"); val = parseInt( val );
+		//console.log(  mas2[i][j]  + " " +  val ); 
+		if ( masY[i][j] != val ) { flagError = true; break; }
+	   }
+	  }
+     
+         
+       var DELTA =  document.getElementById( "delta2" ).innerText.trim();
+   DELTA = DELTA.replace("−","-"); DELTA = parseInt( DELTA );
+   if ( DELTA != delta2 ) flagError = true;
+     
+	  		if ( flagError ) { document.getElementById("check3").innerHTML = "Неправильно!"; } 
+				else { document.getElementById("check3").innerHTML = "Верно!"; }
+ }
+   
+      function check33() {
+	flagError = false;
+	
+	  for (var i=0;i<m;i++){
+		if ( flagError ) break;
+	  for (j=0;j<n-1;j++) {
+		var val =  document.getElementById( "d" + String(i+1) + String(j+1) ).innerText.trim();
+		val = val.replace("−","-"); val = parseInt( val );
+		//console.log(  mas2[i][j]  + " " +  val ); 
+		if ( masZ[i][j] != val ) { flagError = true; break; }
+	   }
+	  }
+     
+         
+       var DELTA =  document.getElementById( "delta3" ).innerText.trim();
+   DELTA = DELTA.replace("−","-"); DELTA = parseInt( DELTA );
+   if ( DELTA != delta3 ) flagError = true;
+     
+	  		if ( flagError ) { document.getElementById("check33").innerHTML = "Неправильно!"; } 
+				else { document.getElementById("check33").innerHTML = "Верно!"; }
+ }
+ 
+    function check4() {
+	flagError = false;
+	
+		var val =  document.getElementById( "x" ).innerText.trim(); val = val.replace("−","-"); 
+		x1 = parseInt( val );
+		
+		var val =  document.getElementById( "y" ).innerText.trim(); val = val.replace("−","-"); 
+		y1 = parseInt( val );
+			
+		var val =  document.getElementById( "z" ).innerText.trim(); val = val.replace("−","-"); 
+		z1 = parseInt( val );		
+	
+
+		if ( !( X==x1 && Y==y1 && Z==z1 ) ) flagError = true;
+
+		if ( flagError ) { document.getElementById("check4").innerHTML = "Неправильно!"; } 
+				else { document.getElementById("check4").innerHTML = "Верно!"; }
+ }
+ 
+ var a = random(-9,0),
+	b = random(0,9);
+	
+function parseIntPlus( st ) {
+// "-4" -> -4, "+5" -> 5
+	var str = st;
+	//if ( str.charAt( 0 ) == "+" ) { str = str.substr(1); }
+	//if ( str.charAt( 0 ) == "?" ) { str = "-" + str.substr(1); }
+	var value = parseInt( str );
+	return( value );
+}
+
+function StringPlus( value, ch, FlagFirst ) {
+// -4 -> "-4", 5 -> "+5"
+	var FlagFirst = ( FlagFirst !== undefined ) ? FlagFirst : false;
+	var s_value = String( value );
+	
+	if ( FlagFirst ) { 
+		expr = s_value + ch;
+		if ( value == 1 ) { expr = ch; }
+		if ( value == 0 ) { expr = ""; }		
+	}
+	else {
+		if ( value < 0 ) { expr = s_value + ch; }	
+		if ( value >= 0 ) { expr = "+" + s_value + ch; }
+		if ( value == 1 ) { expr = "+" + ch; }
+		if ( value == -1 ) { expr = "-" + ch; }		
+		if ( value == 0 ) { expr = ""; }	
+	}
+	return expr;
+}
+	
+
+function formulaCodeGeneric( a, b ) {
+
+
+	var valueInt = b*b*b-a*a*a;
+	var formulaCode = 
+				"\\begin{align*} " + 
+					"		" + StringPlus( a, true ) + "x + 4y - 2z &= -2 \\\\" + 
+					"		x - y + x &= 7 \\\\" + 
+					"		-x + y + x &= 1 " + 
+				"\\end{align*}";	
+	
+	
+	
+	
+//	"\\[  \\int_{ \\cssId{a}{\\class{dynamic}{" + StringPlus( a, true )
+	//	+ "}}}^{ \\cssId{b}{\\class{dynamic}{" + StringPlus( b, true )
+	//	+ "}}} x^2 dx = " + String( valueInt ) + " \\]";
+	return formulaCode;
+ 
+}
+
+
+var	a = random(-9,0),
+	b = random(0,9);	
+//document.getElementById("myDiv").innerHTML = formulaCodeGeneric( a, b );
+
+
+MathJax.Hub.Queue( function () { addEvents(); } );
+function addEvents() {
+var elems = document.getElementsByClassName("dynamic"), newInput;
+for (var i=0; i<elems.length; i++) {
+	var el = elems[i];
+	el.addEventListener('mouseover', function() { 
+			this.style.cursor = 'pointer';
+			this.style.backgroundColor = "#F6CEF5";
+		}, false);
+	el.addEventListener('mouseout', function() { 
+			this.style.cursor = 'auto';
+			this.style.backgroundColor = "#FFFFFF";
+		}, false);		
+}
+for (var i=0; i<elems.length; i++) {
+    var el = elems[i];
+    el.addEventListener("click", function() {
+      var  inputs = this.getElementsByTagName("input");
+        if (inputs.length > 0) return;
+        if (!newInput) {
+            newInput = document.createElement("input");
+            newInput.type = "text";
+          //  newInput.maxLength = 2;
+            newInput.setAttribute("size", 1);
+			newInput.style.fontSize = "18px";
+			newInput.style.color = "blue";
+			newInput.style.width = "24px";
+            newInput.addEventListener("blur", function() {
+				newInput.value = newInput.value.replace("-","−");
+              	if ( newInput.value.length < 1 ) { newInput.value = "&nbsp;?&nbsp;"; }
+				newInput.parentNode.innerHTML = newInput.value;
+              
+				//a = parseIntPlus( document.getElementById("a").innerText );
+				//b = parseIntPlus( document.getElementById("b").innerText );
+				//document.getElementById("myDiv").innerHTML = formulaCodeGeneric( a, b );
+				MathJax.Hub.Queue(["Typeset",MathJax.Hub,document.getElementById("myDiv")], function () { addEvents(); });
+            }, false)
+        }
+        newInput.value = this.innerText; //console.log( "this.innerText=" + this.innerText );
+		
+		newInput.onkeydown = function() {
+			var key = event.keyCode || event.charCode;
+
+			if( key == 8 )
+				return false;
+		};
+        this.innerHTML = "";
+        this.appendChild(newInput);
+        newInput.focus();
+        newInput.select()
+		}.bind(el), false);
+	};
+}
+ </script>
