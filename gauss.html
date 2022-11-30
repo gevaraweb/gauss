@@ -108,7 +108,7 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 
 
 			</div>	
-				<input class="button" type = "button" value = "проверить" onclick = "check1();">  <span class="p" id ="check1"> </span> 
+				<input class="button" type = "button" value = "проверить" onclick = "check1(this);">  <span class="p" id ="check1"> </span> 
 			
 			
 			<br>	<br>
@@ -118,7 +118,7 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 
 
 			</div>	
-				<input type = "button" class="button" value = "проверить" onclick = "check2();">  <span class="p" id ="check2"> </span> 				
+				<input type = "button" class="button" value = "проверить" onclick = "check2(this);">  <span class="p" id ="check2"> </span> 				
 				
 			<br>	<br>
 		
@@ -127,7 +127,7 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 
 
 			</div>	
-				<input type = "button" class="button" value = "проверить" onclick = "check3();">  <span class="p" id ="check3"> </span> 						
+				<input type = "button" class="button" value = "проверить" onclick = "check3(this);">  <span class="p" id ="check3"> </span> 						
 			
 			<br>	<br>	
 			
@@ -137,7 +137,7 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 
 
 			</div>	
-				<input type = "button" class="button" value = "проверить" onclick = "check33();">  <span class="p" id ="check33"> </span> 						
+				<input type = "button" class="button" value = "проверить" onclick = "check33(this);">  <span class="p" id ="check33"> </span> 						
 			
 			<br>	<br>				
 			
@@ -146,7 +146,7 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 
 					
 			</div>	
-				<input type = "button" class="button" value = "проверить" onclick = "check4();">  <span class="p" id ="check4"> </span> 	
+				<input type = "button" class="button" value = "проверить" onclick = "check4(this);">  <span class="p" id ="check4"> </span> 	
 				
 		</div>
 
@@ -346,7 +346,7 @@ document.getElementById("myDiv33").innerHTML = sys11;
  */
  
  
- function check1() {
+ function check1(_this) {
 	flagError = false;
 	
 	  for (var i=0;i<m;i++){
@@ -359,7 +359,8 @@ document.getElementById("myDiv33").innerHTML = sys11;
 	   }
 	  }
 	  		if ( flagError ) { document.getElementById("check1").innerHTML = "Неправильно!"; } 
-				else { document.getElementById("check1").innerHTML = "Верно!"; }
+				else { document.getElementById("check1").innerHTML = "Верно!"; 
+				_this.style.backgroundColor="green"; }
  }
  
  
@@ -376,7 +377,8 @@ document.getElementById("myDiv33").innerHTML = sys11;
 	   }
 	  }
 	  		if ( flagError ) { document.getElementById("check2").innerHTML = "Неправильно!"; } 
-				else { document.getElementById("check2").innerHTML = "Верно!"; }
+				else { document.getElementById("check2").innerHTML = "Верно!";
+				_this.style.backgroundColor="green"; }
  }
  
    function check3() {
@@ -392,7 +394,83 @@ document.getElementById("myDiv33").innerHTML = sys11;
 	   }
 	  }
 	  		if ( flagError ) { document.getElementById("check3").innerHTML = "Неправильно!"; } 
-				else { document.getElementById("check3").innerHTML = "Верно!"; }
+				else { document.getElementById("check3").innerHTML = "Верно!"; 
+				_this.style.backgroundColor="green"; }
+ }
+ 
+ 
+function check33() {
+	
+	let user_line1 = "="+document.getElementById( "sys1" ).innerText.trim().replace('x','*x').replace('y','*y').replace('z','*z');
+	user_line1 = user_line1.replace('−','-');
+	user_line1 = user_line1.replace('-*x','-x').replace('=*x','=x');
+	user_line1 = user_line1.replace('+*y','+y').replace('-*y','-y').replace('=*y','=y');
+	user_line1 = user_line1.replace('+*z','+z').replace('-*z','-z').replace('=*z','=z').replace('=','');
+	
+	let user_line2 = "="+document.getElementById( "sys2" ).innerText.trim().replace('x','*x').replace('y','*y').replace('z','*z');
+	user_line2 = user_line2.replace('−','-');
+	user_line2 = user_line2.replace('-*x','-x').replace('=*x','=x');
+	user_line2 = user_line2.replace('+*y','+y').replace('-*y','-y').replace('=*y','=y');
+	user_line2 = user_line2.replace('+*z','+z').replace('-*z','-z').replace('=*z','=z').replace('=','');
+	
+	let user_line3 = "="+document.getElementById( "sys3" ).innerText.trim().replace('x','*x').replace('y','*y').replace('z','*z');
+	user_line3 = user_line3.replace('−','-');
+	user_line3 = user_line3.replace('-*x','-x').replace('=*x','=x');
+	user_line3 = user_line3.replace('+*y','+y').replace('-*y','-y').replace('=*y','=y');
+	user_line3 = user_line3.replace('+*z','+z').replace('-*z','-z').replace('=*z','=z').replace('=','');
+	
+	//console.log( document.getElementById( "sys1" ).innerText.trim() );
+	//console.log( document.getElementById( "sys2" ).innerText.trim() );
+	//console.log( document.getElementById( "sys3" ).innerText.trim() );
+
+	//console.log( document.getElementById( "b1" ).innerText.trim() );
+	//console.log( document.getElementById( "b2" ).innerText.trim() );
+	//console.log( document.getElementById( "b3" ).innerText.trim() );
+
+	let right_line1 = String( mas3[0][0] ) + '*x+(' + String( mas3[0][1] ) + '*y)+(' 
+			+ String( mas3[0][2] ) + '*z)';
+	let right_line2 = String( mas3[1][0] ) + '*x+(' + String( mas3[1][1] ) + '*y)+(' 
+			+ String( mas3[1][2] ) + '*z)';
+	let right_line3 = String( mas3[2][0] ) + '*x+(' + String( mas3[2][1] ) + '*y)+(' 
+			+ String( mas3[2][2] ) + '*z)';	
+	
+	//console.log ( 'right_line1 = ' + right_line1 );
+	//console.log ( 'right_line2 = ' + right_line2 );	
+	//console.log ( 'right_line3 = ' + right_line3 );	
+	
+
+		
+		flagError = true;
+		
+	try	{
+	
+		let user_b1 = parseInt(document.getElementById( "b1" ).innerText.trim() );	
+		let user_b2 = parseInt(document.getElementById( "b2" ).innerText.trim() );	
+		let user_b3 = parseInt(document.getElementById( "b3" ).innerText.trim() );	
+		
+		let right_b1 = mas3[0][3];
+		let right_b2 = mas3[1][3];
+		let right_b3 = mas3[2][3];
+		
+		let user_f1 = new Function('x','y','z', 'return ' + user_line1 );
+		let user_f2 = new Function('x','y','z', 'return ' + user_line2 );
+		let user_f3 = new Function('x','y','z', 'return ' + user_line3 );
+		
+		let right_f1 = new Function('x','y','z', 'return ' + right_line1 );
+		let right_f2 = new Function('x','y','z', 'return ' + right_line2 );
+		let right_f3 = new Function('x','y','z', 'return ' + right_line3 );	
+		
+		//console.log ( 'user_f1 = ' + user_f1(1,2,3) );
+		//console.log ( 'user_f2 = ' + user_f2(1,2,3) );	
+		//console.log ( 'user_f3 = ' + user_f3(1,2,3) );	
+		
+		if ( user_f1(1,2,3) == right_f1(1,2,3) && user_f2(1,2,3) == right_f2(1,2,3) && user_f3(1,2,3) == right_f3(1,2,3) && user_b1 == right_b1 && user_b2 == right_b2 && user_b3 == right_b3 ) flagError = false;
+	}
+	catch (err) {}
+	
+	  	if ( flagError ) { document.getElementById("check33").innerHTML = "Неправильно!"; } 
+				else { document.getElementById("check33").innerHTML = "Верно!"; 
+				_this.style.backgroundColor="green"; }
  }
  
     function check4() {
@@ -411,7 +489,8 @@ document.getElementById("myDiv33").innerHTML = sys11;
 		if ( !( X==x1 && Y==y1 && Z==z1 ) ) flagError = true;
 
 		if ( flagError ) { document.getElementById("check4").innerHTML = "Неправильно!"; } 
-				else { document.getElementById("check4").innerHTML = "Верно!"; }
+				else { document.getElementById("check4").innerHTML = "Верно!"; 
+				_this.style.backgroundColor="green"; }
  }
  
  var a = random(-9,0),
@@ -571,7 +650,7 @@ for (var i=0; i<elems.length; i++) {
 		newInput.onkeydown = function() {
 			var key = event.keyCode || event.charCode;
 
-			if( key == 8 )
+			if( key == 8 && newInput.value.length < 2 )
 				return false;
 		};
         this.innerHTML = "";
