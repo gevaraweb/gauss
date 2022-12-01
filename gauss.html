@@ -364,7 +364,7 @@ document.getElementById("myDiv33").innerHTML = sys11;
  }
  
  
-  function check2() {
+  function check2(_this) {
 	flagError = false;
 	
 	  for (var i=0;i<m;i++){
@@ -381,7 +381,7 @@ document.getElementById("myDiv33").innerHTML = sys11;
 				_this.style.backgroundColor="green"; }
  }
  
-   function check3() {
+   function check3(_this) {
 	flagError = false;
 	
 	  for (var i=0;i<m;i++){
@@ -399,7 +399,7 @@ document.getElementById("myDiv33").innerHTML = sys11;
  }
  
  
-function check33() {
+function check33(_this) {
 	
 	let user_line1 = "="+document.getElementById( "sys1" ).innerText.trim().replace('x','*x').replace('y','*y').replace('z','*z');
 	user_line1 = user_line1.replace('−','-');
@@ -438,32 +438,46 @@ function check33() {
 	//console.log ( 'right_line2 = ' + right_line2 );	
 	//console.log ( 'right_line3 = ' + right_line3 );	
 	
-
+	//console.log ( 'user_line1 = ' + user_line1 );
+	//console.log ( 'user_line2 = ' + user_line2 );	
+	//console.log ( 'user_line3 = ' + user_line3 );	
 		
 		flagError = true;
 		
 	try	{
 	
-		let user_b1 = parseInt(document.getElementById( "b1" ).innerText.trim() );	
-		let user_b2 = parseInt(document.getElementById( "b2" ).innerText.trim() );	
-		let user_b3 = parseInt(document.getElementById( "b3" ).innerText.trim() );	
+		let user_b1 = parseInt(document.getElementById( "b1" ).innerText.replace('−','-').trim() );	
+		let user_b2 = parseInt(document.getElementById( "b2" ).innerText.replace('−','-').trim() );	
+		let user_b3 = parseInt(document.getElementById( "b3" ).innerText.replace('−','-').trim() );	
 		
 		let right_b1 = mas3[0][3];
 		let right_b2 = mas3[1][3];
 		let right_b3 = mas3[2][3];
-		
-		let user_f1 = new Function('x','y','z', 'return ' + user_line1 );
+
+		let user_f1 = new Function('x','y','z', 'return ' + user_line1 ); 
 		let user_f2 = new Function('x','y','z', 'return ' + user_line2 );
 		let user_f3 = new Function('x','y','z', 'return ' + user_line3 );
 		
 		let right_f1 = new Function('x','y','z', 'return ' + right_line1 );
 		let right_f2 = new Function('x','y','z', 'return ' + right_line2 );
-		let right_f3 = new Function('x','y','z', 'return ' + right_line3 );	
+		let right_f3 = new Function('x','y','z', 'return ' + right_line3 );
+	/*	
+		console.log ( 'user_f1 = ' + user_f1(1,2,3) );
+		console.log ( 'user_f2 = ' + user_f2(1,2,3) );	
+		console.log ( 'user_f3 = ' + user_f3(1,2,3) );	
 		
-		//console.log ( 'user_f1 = ' + user_f1(1,2,3) );
-		//console.log ( 'user_f2 = ' + user_f2(1,2,3) );	
-		//console.log ( 'user_f3 = ' + user_f3(1,2,3) );	
+		console.log ( 'right_f1 = ' + right_f1(1,2,3) );
+		console.log ( 'right_f2 = ' + right_f2(1,2,3) );	
+		console.log ( 'right_f3 = ' + right_f3(1,2,3) );	
+
+		console.log ( 'user_b1 = ' + user_b1 );
+		console.log ( 'user_b2 = ' + user_b2 );	
+		console.log ( 'user_b3 = ' + user_b3 );	
 		
+		console.log ( 'right_b1 = ' + right_b1 );	
+		console.log ( 'right_b2 = ' + right_b2 );	
+		console.log ( 'right_b3 = ' + right_b3 );			
+		*/
 		if ( user_f1(1,2,3) == right_f1(1,2,3) && user_f2(1,2,3) == right_f2(1,2,3) && user_f3(1,2,3) == right_f3(1,2,3) && user_b1 == right_b1 && user_b2 == right_b2 && user_b3 == right_b3 ) flagError = false;
 	}
 	catch (err) {}
@@ -473,7 +487,7 @@ function check33() {
 				_this.style.backgroundColor="green"; }
  }
  
-    function check4() {
+    function check4(_this) {
 	flagError = false;
 	
 		var val =  document.getElementById( "x" ).innerText.trim(); val = val.replace("−","-"); 
@@ -577,63 +591,10 @@ for (var i=0; i<elems.length; i++) {
             newInput.type = "text";
           //  newInput.maxLength = 2;
             newInput.setAttribute("size", 1);
-			newInput.style.fontSize = "30px";
+			newInput.style.fontSize = "36px";
 			newInput.style.color = "blue";
 			newInput.style.fontFamily = "MJXc-TeX-main-R";
-			newInput.style.width = "36px";
-            newInput.addEventListener("blur", function() {
-				newInput.value = newInput.value.replace("-","−");
-              	if ( newInput.value.length < 1 ) { newInput.value = "&nbsp;?&nbsp;"; }
-				newInput.parentNode.innerHTML = newInput.value;
-              
-				//a = parseIntPlus( document.getElementById("a").innerText );
-				//b = parseIntPlus( document.getElementById("b").innerText );
-				//document.getElementById("myDiv").innerHTML = formulaCodeGeneric( a, b );
-				//MathJax.Hub.Queue(["Typeset",MathJax.Hub,document.getElementById("myDiv")], function () { addEvents(); });
-            }, false)
-        }
-        newInput.value = this.innerText; //console.log( "this.innerText=" + this.innerText );
-		
-		newInput.onkeydown = function() {
-			var key = event.keyCode || event.charCode;
-
-			if( key == 8 )
-				return false;
-		};
-        this.innerHTML = "";
-        this.appendChild(newInput);
-        newInput.focus();
-        newInput.select()
-		}.bind(el), false);
-	};
-	
-	
-var elems = document.getElementsByClassName("dynamic td-matr-line"), newInput;
-for (var i=0; i<elems.length; i++) {
-	var el = elems[i];
-	el.addEventListener('mouseover', function() { 
-			this.style.cursor = 'pointer';
-			this.style.backgroundColor = "#F6CEF5";
-		}, false);
-	el.addEventListener('mouseout', function() { 
-			this.style.cursor = 'auto';
-			this.style.backgroundColor = "#FFFFFF";
-		}, false);		
-}
-for (var i=0; i<elems.length; i++) {
-    var el = elems[i];
-    el.addEventListener("click", function() {
-      var  inputs = this.getElementsByTagName("input");
-        if (inputs.length > 0) return;
-        if (!newInput) {
-            newInput = document.createElement("input");
-            newInput.type = "text";
-          //  newInput.maxLength = 2;
-            newInput.setAttribute("size", 1);
-			newInput.style.fontSize = "30px";
-			newInput.style.color = "blue";
-			newInput.style.fontFamily = "MJXc-TeX-main-R";
-			newInput.style.width = "100px";
+			newInput.style.width = "32px";
             newInput.addEventListener("blur", function() {
 				newInput.value = newInput.value.replace("-","−");
               	if ( newInput.value.length < 1 ) { newInput.value = "&nbsp;?&nbsp;"; }
@@ -657,6 +618,59 @@ for (var i=0; i<elems.length; i++) {
         this.appendChild(newInput);
         newInput.focus();
         newInput.select()
+		}.bind(el), false);
+	};
+	
+	
+var elems = document.getElementsByClassName("dynamic td-matr-line"), newInput2;
+for (var i=0; i<elems.length; i++) {
+	var el = elems[i];
+	el.addEventListener('mouseover', function() { 
+			this.style.cursor = 'pointer';
+			this.style.backgroundColor = "#F6CEF5";
+		}, false);
+	el.addEventListener('mouseout', function() { 
+			this.style.cursor = 'auto';
+			this.style.backgroundColor = "#FFFFFF";
+		}, false);		
+}
+for (var i=0; i<elems.length; i++) {
+    var el = elems[i];
+    el.addEventListener("click", function() {
+      var  inputs = this.getElementsByTagName("input");
+        if (inputs.length > 0) return;
+        if (!newInput2) {
+            newInput2 = document.createElement("input");
+            newInput2.type = "text";
+          //  newInput2.maxLength = 2;
+            newInput2.setAttribute("size", 1);
+			newInput2.style.fontSize = "30px";
+			newInput2.style.color = "blue";
+			newInput2.style.fontFamily = "MJXc-TeX-main-R";
+			newInput2.style.width = "108px";
+            newInput2.addEventListener("blur", function() {
+				newInput2.value = newInput2.value.replace("-","−");
+              	if ( newInput2.value.length < 1 ) { newInput2.value = "&nbsp;?&nbsp;"; }
+				newInput2.parentNode.innerHTML = newInput2.value;
+              
+				//a = parseIntPlus( document.getElementById("a").innerText );
+				//b = parseIntPlus( document.getElementById("b").innerText );
+				//document.getElementById("myDiv").innerHTML = formulaCodeGeneric( a, b );
+				//MathJax.Hub.Queue(["Typeset",MathJax.Hub,document.getElementById("myDiv")], function () { addEvents(); });
+            }, false)
+        }
+        newInput2.value = this.innerText; //console.log( "this.innerText=" + this.innerText );
+		
+		newInput2.onkeydown = function() {
+			var key = event.keyCode || event.charCode;
+
+			if( key == 8 && newInput2.value.length < 2 )
+				return false;
+		};
+        this.innerHTML = "";
+        this.appendChild(newInput2);
+        newInput2.focus();
+        newInput2.select()
 		}.bind(el), false);
 	};	
 	
